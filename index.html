@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokiFace - Find Your Pokémon Twin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- API Key Modal -->
+    <div id="apiModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Welcome to PokiFace!</h2>
+                <p>Enter your Gemini API key to get started</p>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="apiKeyInput" placeholder="Your Gemini API Key">
+                    <button type="button" id="togglePassword" class="password-toggle">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="api-info">
+                    <p><i class="fas fa-info-circle"></i> <strong>How to get your API key:</strong></p>
+                    <ol style="margin: 12px 0; padding-left: 20px; color: var(--gray);">
+                        <li>Visit <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></li>
+                        <li>Sign in with your Google account</li>
+                        <li>Click "Create API Key"</li>
+                        <li>Copy and paste it above</li>
+                    </ol>
+                    <p style="font-size: 0.85rem; color: var(--gray); margin-top: 8px;">✨ It's completely free to use!</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveApiKey" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Let's Go!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>🎭 PokiFace</h1>
+                <p>Discover your Pokémon twin</p>
+            </div>
+            <button id="settingsBtn" class="settings-btn">
+                <i class="fas fa-cog"></i>
+            </button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section class="upload-section" id="uploadSection">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Upload Your Photo</h3>
+                        <p>Drop your image here or click to browse</p>
+                        <p class="file-types">Supports JPG, PNG files</p>
+                        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png" hidden>
+                        <button class="btn btn-secondary" id="browseBtn">
+                            <i class="fas fa-folder-open"></i>
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comparison Section -->
+            <section class="comparison-section" id="comparisonSection" style="display: none;">
+                <div class="comparison-container">
+                    <!-- User Image -->
+                    <div class="image-card user-card">
+                        <div class="card-header">
+                            <h3>You</h3>
+                        </div>
+                        <div class="image-container">
+                            <img id="userImage" alt="Your uploaded photo">
+                        </div>
+                    </div>
+
+                    <!-- VS Indicator -->
+                    <div class="vs-indicator">
+                        <div class="vs-circle">
+                            <span>VS</span>
+                        </div>
+                        <div class="lightning">⚡</div>
+                    </div>
+
+                    <!-- Pokemon Image -->
+                    <div class="image-card pokemon-card">
+                        <div class="card-header">
+                            <h3 id="pokemonName">Your Pokémon Twin</h3>
+                        </div>
+                        <div class="image-container" id="pokemonContainer">
+                            <div class="loading-spinner" id="loadingSpinner">
+                                <div class="spinner"></div>
+                                <p>Analyzing your face...</p>
+                            </div>
+                            <img id="pokemonImage" alt="Your Pokémon twin" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Description -->
+                <div class="result-description" id="resultDescription" style="display: none;">
+                    <div class="description-content">
+                        <h4>Your Pokémon Personality</h4>
+                        <p id="pokemonDescription"></p>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="shareBtn">
+                            <i class="fas fa-share-alt"></i>
+                            Share Result
+                        </button>
+                        <button class="btn btn-secondary" id="tryAgainBtn">
+                            <i class="fas fa-redo"></i>
+                            Try Another Photo
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer
+        <footer class="footer">
+            <p>Made with ❤️ using Gemini AI</p>
+        </footer> -->
+    </div>
+
+    <!-- Error Toast -->
+    <div id="errorToast" class="toast error-toast">
+        <div class="toast-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="errorMessage"></span>
+        </div>
+        <button class="toast-close" id="closeToast">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="successToast" class="toast success-toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="successMessage"></span>
+        </div>
+        <button class="toast-close" id="closeSuccessToast">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
